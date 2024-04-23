@@ -1,0 +1,37 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int* func()
+{
+	int *p=new int(10);
+	return p;
+}
+//1.new的基本语法
+void text01()
+{
+	int* p = func();
+	cout << *p << endl;
+	delete p;
+}
+//2.在堆区利用new开辟数组
+void text02()
+{
+	int* arr = new int[10];
+	for (int i = 0; i < 10; i++)
+	{
+		arr[i] = i + 100;
+	}for (int i = 0; i < 10; i++)
+	{
+		cout << arr[i] << endl;
+	}
+	delete[] arr;
+}
+int main()
+{
+	//text01();
+	text02();
+	
+	system("pause");
+	
+	return 0;
+}
