@@ -1,0 +1,16 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+//语法：函数返回值 函数名（数据类型）{}
+//占位参数可以有默认值
+void func(int a, int)//func（int a=10,int =10）{}
+{
+	cout << "this is function" << endl;
+}
+
+int main()
+{
+	func(10, 10);
+	//func(10)当占位参数有默认值时；
+	return 0;
+}
