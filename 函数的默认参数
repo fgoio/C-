@@ -1,0 +1,22 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+int func(int a, int b = 20, int c = 30)
+{
+	return a + b + c;
+}
+//1.如果某个位置参数有默认值，那么从这个位置往右，从左向右，必须要有默认值；
+//2.如果函数声明有默认值，那么函数实现就不能有默认值；
+int func2(int a=10, int b=10, int c=12);
+int func2(int a, int b, int c )
+{
+	return a + b + c;
+}
+
+int main()
+{
+	cout << func(10,2,30) << endl;
+	cout << func2() << endl;
+	return 0;
+}
