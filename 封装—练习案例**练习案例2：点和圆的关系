@@ -1,0 +1,101 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cmath>
+using namespace std;
+#include"Point.h"
+#include"circle.h"
+//点和圆关系案例
+////点类
+//class Point
+//{
+//public:
+//	//设置X坐标
+//	void setX(int x)
+//	{
+//		m_X = x;
+//	}
+//	//获取X坐标
+//	int getX()
+//	{
+//		return m_X;
+//	}
+//	//设置Y坐标
+//	void setY(int y)
+//	{
+//		m_Y= y;
+//	}
+//	//获取Y坐标
+//	int getY()
+//	{
+//		return m_Y;
+//	}
+//private:
+//	int m_X;
+//	int m_Y;
+//};
+//class circle
+//{
+//public:
+//	//设置半径
+//	void setR(int r)
+//	{
+//		 m_R = r;
+//	}
+//	//获取半径
+//	int getR()
+//	{
+//		return m_R;
+//	}
+//	//设置圆心  /*！！！太妙了！！！*/
+//	void setcenter(Point center)
+//	{
+//		m_center = center;
+//	}
+//	//获取圆心 /*！！！太妙了！！！*/
+//	 Point getcenter()
+//	{
+//		return m_center;
+//	}
+//private:
+//	int  m_R;
+//	//**在类中可以让另一个类作为本类中的成员**/
+//	Point m_center;//圆心
+//
+//};
+//判断点和圆的关系
+// 判断点和圆的关系  
+void isIncircle( circle& c,  Point& p) {
+	// 计算圆心到点的距离的平方  
+	double distanceSquared = pow(c.getcenter().getX() - p.getX(), 2) + pow(c.getcenter().getY() - p.getY(), 2);
+
+	// 计算半径的平方  
+	double radiusSquared = pow(c.getR(), 2);
+
+	// 比较距离的平方和半径的平方来判断点的位置  
+	if (distanceSquared < radiusSquared) {
+		cout << "点在圆内" << endl;
+	}
+	else if (distanceSquared == radiusSquared) {
+		cout << "点在圆上" << endl;
+	}
+	else {
+		cout << "点在圆外" << endl;
+	}
+}
+int main()
+{
+	//创建圆
+	circle c;
+	c.setR(10);
+	Point center;
+	center.setX(10);
+	center.setY(0);
+	c.setcenter(center);
+	//创建点
+	Point  p;
+	p.setX(10);
+	p.setY(11);
+	isIncircle(c, p);
+	system("pause");//cin.get();
+	return 0;
+}
