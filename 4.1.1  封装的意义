@@ -1,0 +1,27 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+const double pai = 3.14;
+//设计一个圆类，求圆的周长
+//circle zc=2*pai*m_r;
+// class代表设计一个类，类后面紧紧跟着的就是类名称；
+class circle
+{
+public:
+	//成员变量
+	 int m_r;
+
+	//行为和方法
+	 double circle_zc(int m_r)
+	 {
+		 return 2 * pai * m_r;
+	 }
+
+};
+int main()
+{
+	circle c1;
+	
+	cout << "圆的周长为：" << c1.circle_zc(10) << endl;
+	return 0;
+}
