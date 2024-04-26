@@ -1,0 +1,37 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+class Person
+{
+public:
+	// 对象的初始化和清理
+	//1、构造函数 进行初始化操作
+	/*没有返回值也不写void
+	* 函数名与类名称相同
+	* 可以有参数，因此可以发生函数重载
+	* 程序在调用类对象时自动调用对象，无需手动调用，仅调用一次*/
+	Person()
+	{
+		cout << "Person 构造函数调用" << endl;
+	}
+	//2、析构函数 进行清理的操作
+	//没有返回值也不写void
+	//函数名与类名称相同,在名称前加上符号~
+	//不能有参数，因此不能发生函数重载
+	//对象执行完毕销毁后才会调用析构函数,无需手动(传参)调用，仅调用一次
+	~Person()
+	{
+		cout << "Person 析构函数调用" << endl;
+	}
+};
+void test01()
+{
+	Person p;
+}
+int main()
+{
+	//test01();
+	Person p;//(对象执行完毕销毁后才会调用析构函数)
+	system("pause");
+	return 0;
+}
