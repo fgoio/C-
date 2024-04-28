@@ -1,0 +1,59 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+class Person
+{
+public:
+	Person()
+	{
+		cout << "Person无参函数构造调用" << endl;
+	}
+	Person(int age,int Hight)
+	{
+		cout << "Person有参函数构造调用" << endl;
+		m_Age = age;
+		m_Hight = new int(Hight);
+	}
+	/*Person(const Person& p)
+	{
+		m_Age = p.m_Age;
+		m_Hight = new int(*p.m_Hight);
+		cout << "Person拷贝函数构造调用" << endl;
+	}*/
+	~Person()
+	{
+		if (m_Hight != NULL)
+		{
+			delete m_Hight;
+			m_Hight = NULL;
+		}
+		cout << "Person析构函数构造调用" << endl;
+	}
+
+public:
+	int m_Age;
+	int* m_Hight;
+};
+//浅拷贝（默认情况下）：当对象包含指向其他对象的指针时，浅拷贝只复制指针本身，而不复制指针所指向的对象。这意味着如果 p1 和 p2 都有指向 m_height 的指针，它们在拷贝过程中指向的是同一个 m_height，即共享同一块内存。这可能导致以下问题：
+//
+//修改 p1 的 m_height 会导致 p2 的 m_height 也被修改，因为它们指向同一个内存地址。
+//如果 m_height 是一个动态分配的内存（如 new 的对象），那么在 p1 的析构函数中释放了内存，p2 将继续指向已释放的内存，这会导致程序错误。
+//深拷贝：为了避免这些问题，拷贝构造函数中通常会进行深拷贝，即为 m_height 分配新的内存，并复制 p1 的 m_height 的值到新的内存地址。这样，p1 和 p2 就拥有各自独立的 m_height 内存了。
+void text01()
+{
+	Person p1(18, 160);
+	Person p2(p1);//先进后出，p2先释放；浅拷贝带来的问题：堆区的内存在调用析构函数重复释放；p2==NULL，但是p1还是等于0X0011；
+	cout << "p1的年龄：" << p1.m_Age << "p1的身高：" << *p1.m_Hight << endl;
+	cout << "p2的年龄：" << p2.m_Age << "p2的身高：" << *p2.m_Hight << endl;
+
+}
+int main()
+{
+	Person p;
+	text01();
+	/*text02();
+	text03();*/
+	system("pause");
+	return 0;
+}
+//为什么开辟到堆区：因为堆区的数据可以手动释放，在函数体外也可以使用，实际应用中会用到堆区，用到堆区而且又需要拷贝的时候要防止指针悬挂的问题
