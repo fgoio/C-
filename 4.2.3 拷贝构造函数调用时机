@@ -70,3 +70,18 @@ int main()
 	system("pause");
 	return 0;
 }
+
+输出结果：
+Person无参函数构造调用
+Person无参函数构造调用
+Person拷贝函数构造调用
+Person析构函数构造调用
+Person析构函数构造调用
+Person无参函数构造调用
+p1的地址：0000002AA099F8A4
+Person拷贝函数构造调用
+Person析构函数构造调用
+p的地址：0000002AA099F9E4
+Person析构函数构造调用
+请按任意键继续. . .
+Person析构函数构造调用
