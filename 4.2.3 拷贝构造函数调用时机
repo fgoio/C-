@@ -1,0 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+class Person
+{
+public:
+	Person()
+	{
+		cout << "Person无参函数构造调用" << endl;
+	}
+	Person(int age)
+	{
+		m_Age = age;
+		cout << "Person有参函数构造调用" << endl;
+	}
+	Person(const Person& p)
+	{
+		m_Age = p.m_Age;
+		cout << "Person拷贝函数构造调用" << endl;
+	}
+	~Person()
+	{
+		cout << "Person析构函数构造调用" << endl;
+	}
+
+public:
+	int m_Age;
+};
+//1、使用一个已经创建完毕的对象来初始化一个新对象；
+void text01()
+{
+	Person p1(20);
+	Person p2(p1);
+	Person p3 = p2;
+	cout << p1.m_Age << endl;
+	cout << p2.m_Age << endl;
+	cout << p3.m_Age << endl;
+}
+//2、值传递的方式给函数参数传值
+//相当于Person p1=p;（隐式转换法）
+//一份临时拷贝，占用不同的空间
+void dowork(Person p1)
+{
+	//p1.m_Age = 1000;不会改变p的值；
+}
+void text02()
+{
+	Person p;
+	dowork(p);
+}
+//3、以值方式返回局部对象
+Person doWork2()
+{
+	Person p1;
+	cout << "p1的地址：" << (int*)&p1 << endl;
+	return Person (p1);//返回的是一个拷贝
+
+}
+void text03()
+{
+	Person p = doWork2();
+	cout << "p的地址：" << (int*)&p << endl;
+}
+int main()
+{
+	Person p;
+	//text01();
+	text02();
+	text03();
+	system("pause");
+	return 0;
+}
