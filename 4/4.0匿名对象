@@ -1,0 +1,73 @@
+//匿名对象产生的三种场景
+#include<iostream>
+using namespace std;
+
+class Point {
+public:
+    Point(int a, int b) {
+        cout << "有参构造函数被调用了1" << endl;
+        this->x = a;
+        this->y = b;
+    }
+    Point(Point& a1) {
+        cout << "拷贝构造函数被调用了2" << endl;
+        this->x = a1.x;
+        this->y = a1.y;
+    }
+    ~Point() {
+        cout << "析构函数被调用了3" << endl;
+        cout << "x=" << x << endl;
+        cout << "y=" << y << endl;
+    }
+    Point Protset(int a) {
+        this->x = a;
+        return *this;
+        //执行 return *this; 会产生一个匿名对象，作为返回值
+        //强调：如果返回值是引用，则不会产生匿名对象
+    }
+
+    Point Protset2(int a) {
+        Point temp(a, a);
+        return temp;
+        //执行 return temp;会先产生一个匿名对象,执行拷贝构造函数，作为返回值,
+        //然后释放临时对象temp
+    }
+
+    //总结：函数返回值为一个对象（非引用）的时候会产生一个匿名对象，匿名对象根据主函数的操作决定生命周期
+
+    Point& Protset3(int a) {
+        Point temp(a, a);
+        return temp;
+        //执行 return temp;不会产生匿名对象，而是会将temp的地址先赋值到引用中，
+        //在释放temp的内存，此时Point&得到是一个脏数据
+    }
+
+    void PrintfA()const {
+        cout << "x=" << x << endl;
+        cout << "y=" << y << endl;
+    }
+
+private:
+    int x;
+    int y;
+};
+
+
+void ProtectA() {
+    //生成一个匿名对象，因为用来初始化另一个同类型的对象，这个匿名对象会直接转换成新的对象，
+    //减少资源消耗
+    Point p1 = Point(1, 1);
+    /*Point p2(2, 2);
+    p2 = p1.Protset(3);
+    p2.PrintfA();*/
+    //观察发现p2打印出正确数据,因此得出结论p1.Protset(3);返回来一个匿名对象，
+    //但是这个匿名对象执行完"="之后，才会被释放
+    Point p4(5, 5);
+    p4 = p1.Protset2(4);
+    p4.PrintfA();
+}
+
+void main() {
+    ProtectA();
+    system("pause");
+}
