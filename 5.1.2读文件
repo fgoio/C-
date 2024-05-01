@@ -1,0 +1,64 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+#include <string>
+#include <fstream>//读写操作
+void text02()
+{
+	ifstream ifs;//创建输入流对象（从文件输入到程序） 读取文件
+	ifs.open("text.txt", ios::in);// 参数意义：(字符串文件路径，打开方式)
+	if (!ifs.is_open())
+	{
+		cout << "文件打开失败" << endl;
+		return;
+	}
+	//第一种(这种方法通常用于读取单词或数字，因为它会在空白字符（如空格、制表符或换行符）处停止。由于 buf 是一个字符数组，如果文件中的单词或数字长度超过数组大小（减去一个用于终止的null字符），这可能会导致缓冲区溢出。)
+	/*char buf[1024] = { 0 };//
+	while (ifs >> buf)
+	{
+		cout << buf << endl;
+	}*/
+	//第二种(这种方法读取整行，直到遇到换行符或达到指定的最大字符数（在这里是 sizeof(buf) - 1，因为还要为null终止字符留一个位置）。)
+	/*char buf[1024] = { 0 };
+	while (ifs.getline(buf, sizeof(buf)))  参数意义：（放到哪个数组里，读多少字节）
+	{
+		cout << buf << endl;
+	}*/
+	//第三种
+	string buf;//(可以自动处理内存分配和释放，并且不必担心缓冲区溢出。)
+	//while (getline(ifs, buf))// 参数意义：（基础输入流，准备好的字符串）
+	//{
+	//	cout << buf << endl;
+	//}
+	//第四种
+	char e;
+	while ((e =ifs.get()) != EOF)//(这种方法逐个字符地读取文件内容，直到遇到文件结束（EOF）。它不会在每个字符后添加换行符，因此输出将是一个连续的字符流，没有分隔符。如果你希望输出与原始文件完全相同（包括空白字符和换行符），那么这种方法很有用。)
+	{
+		cout << e;
+	}
+	ifs.close();
+}
+int main()
+{
+	text02();
+	return 0;
+}
+#include <iostream>  
+
+//为什么cout << buf << endl;可以
+//int main() {
+//	char buf[10] = "Hello"; // 注意这里没有显式地添加 null 字符，但 C 风格的字符串字面量会自动包含它  
+//	std::cout << buf << std::endl; // 输出 "Hello"  
+//	// 在这里，buf 被解释为指向 'H' 的指针，cout 接着会打印出从 'H' 开始直到遇到 null 字符的所有字符  
+//
+//	return 0;
+//}
+总结：
+
+- 读文件可以利用 ifstream  ，或者fstream类
+- 利用is_open函数可以判断文件是否打开成功
+- close 关闭文件 
+
+
+
