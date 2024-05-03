@@ -1,0 +1,67 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+//*利用函数模板封装一个排序的函数，可以对** 不同数据类型数组** 进行排序
+//* 排序规则从大到小，排序算法为** 选择排序**
+//* 分别利用** char数组** 和** int数组** 进行测试
+
+// 交换的函数模板
+template<typename T>
+void Myswap(T& a, T& b)
+{
+	T temp = a;
+	a = b;
+	b = temp;
+}
+template<class T> // 也可以替换成typename
+//利用选择排序，进行对数组从大到小的排序
+void Mysort(T arr[], int len)
+{
+	for (int i = 0; i < len; i++)
+	{
+		int max = i;//最大数的下标
+		for (int j = i + 1; j < len; j++)
+		{
+			if (arr[max] < arr[j])
+			{
+				max = j;
+			}
+		}
+		if (max != i) // 如果最大数的下标不是i，交换两者
+		{
+			Myswap(arr[max], arr[i]);
+		}
+	}
+}
+template<typename T>
+void printArray(T Arr[], int len)
+{
+	for (int i = 0; i < len; i++) {
+		cout << Arr[i] << " ";
+	}
+	cout << endl;
+}
+void text01()
+{
+	char Arr[] = "gfadebch";
+		int num = sizeof(Arr) / sizeof(char);
+		Mysort(Arr, num);
+		printArray(Arr, num);
+
+}
+void text02()
+{
+	int intArr[] = { 7, 5, 8, 1, 3, 9, 2, 4, 6,10 };
+	int num = sizeof(intArr) / sizeof(int);
+	Mysort(intArr, num);
+	printArray(intArr, num);
+}
+int main()
+{
+	text01();
+	text02();
+	system("pause");
+	return 0;
+}
+//总结：模板可以提高代码复用，需要熟练掌握
+
